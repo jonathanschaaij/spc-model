@@ -4,5 +4,6 @@ This repository contains a simulink model of a self-propelled-caravan (SPC), an 
 
 ## How to run the model
 TODO
+test here
 
 ## 
