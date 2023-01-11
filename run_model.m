@@ -3,7 +3,6 @@ clear;
 close all;
 clc;
 
-
 %% Constant
 airDensity = 1.293;% kg/m^3
 gravity = 9.81; %m/s^2
@@ -31,6 +30,7 @@ massSPC = massBatt + massCaravan + massStorage + nTires * massTire; %kg
 
 
 inertialMassSPC = massSPC + nTires * inertia_tire / radiusTire^2;
+
 
 % TODO: center of mass on axis of car, behind, in front. Changes the
 % rolling resistance. 
