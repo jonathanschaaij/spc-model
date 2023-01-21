@@ -22,6 +22,10 @@ radiusTire = 0.3; %m
 
 %% Trip 
 slope = 0; %radian
+%% Battery param
+NominalVoltage = 370 ;
+Capacity_Ah = 300 ;
+Capacity_kWh = Capacity_Ah*NominalVoltage/1000 ;
 
 %% Equations
 
