@@ -1,4 +1,4 @@
-% Author: Tjeerd Bakker, Jonathan Schaaij
+% Author: Tjeerd Bakker, Jonathan Schaaij, Alexandru Savca 
 clear;
 close all;
 clc;
@@ -12,9 +12,9 @@ aeroDragCoeff = 0.2;
 rollingResistCoeff = 0.01; % TODO: determine source
 frontArea = 4; %m^2
 
-massBatt = 500; % kg
-massCaravan = 500; % kg
-massStorage = 500; % kg
+massBatt = 600; % kg
+massCaravan = 100; % kg
+massStorage = 100; % kg
 
 nTires = 2;
 massTire = 7; %kg
