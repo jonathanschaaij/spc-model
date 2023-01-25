@@ -4,7 +4,11 @@ This repository contains a simulink model of a self-propelled-caravan (SPC), an 
 
 ## Authors
 
-This model has been made by group SPC-3: Tjeerd Bakker, Alexandru Savca and Jonathan Schaaij.
+This model has been made by group SPC-3:
+
+- Tjeerd Bakker
+- Alexandru Savca
+- Jonathan Schaaij.
 
 ## How to run the model
 
@@ -38,14 +42,14 @@ This model has been made by group SPC-3: Tjeerd Bakker, Alexandru Savca and Jona
 |massTire           | The mass of a single tire. By default 20 kg [Source](https://www.tuningblog.eu/kategorien/tipps_tuev-dekra-u-co/leichte-reifen-345639/)|
 |radiusTire         | default diameter is 17 inches, which converts to 216mm radius [Source](https://www.tuningblog.eu/kategorien/tipps_tuev-dekra-u-co/leichte-reifen-345639/)|
 |rated_speed        | Rated maximum speed of the motor. By default 25000 rpm|
-|rated_load         | Rated power of the motor, by default 350kW|
+|rated_load         | Rated power of the motor, by default 250kW|
 |battery_cut_off    | Minimum state of chare(SOC) before the battery cuts off, this limitation is set to prolong the battery lifetime|
 |NominalVoltage     | NominalVoltage of the battery. By default we chose 370, which is the result of 100 lithium-ion cells in series|
 |Capacity_Ah        |The battery capacity in Ah. By default 300|
 |battEnergyDensity|Energy density of the battery cells. Default is 240 Wh per kg, based on calculations from [this](https://www.uetechnologies.com/how-much-does-a-tesla-battery-weigh) source|
 |slope              |Average slope during the whole trip in degrees, to make it a slope-profile instead of a constant value, the simulink block needs to be change|
 
-Other variables and constants, suhc as the mass of the battery, the intertia of the tires and the total mass are calculated from the above described variables.
+Other variables and constants, such as the mass of the battery, the intertia of the tires and the total mass are calculated from the above described variables.
 
 ## Simulink model explaination
 
@@ -56,9 +60,11 @@ These values go into the `motor_PWMController`. There the acceleration value dri
 The DC-motor is connected to a theoretically perfect gear, which is connected to a rotational to linear converter, which has a power output in the forwards direction.
 
 The motor power flows into the `mechanicalbody_model` which simulated the mass of the caravan with it's position and velocity. The caravan is modelled as an intertial point mass, this mass included the actual total mass of the body, but it also includes the rotational interia of the wheels. This is important since the energy pulling on the caravan is partially being converted to rotational momentum and not just translational momentum, which determines the velocity.
-The `mechanicalbody_model` also includes all other forces acting on the caravan such as the rolling resistance, an optional gravitational force resulting from a slope and finally a simplified version of the drag force. The drag force is modelled as a simple force acting only on the caravan, but in the real world the drag is acting on the combined system of the caravan and the pulling car. To properly model this, computational fluid dynamic(CFD) simulations need to be done, to determine the total drag force on the car and on the caravan seperately, which is beyond the scope of this assignment.
+The `mechanicalbody_model` also includes all other forces acting on the caravan such as the rolling resistance, an optional gravitational force resulting from a slope and finally a simplified version of the drag force. The drag force is modelled as a simple force acting only on the caravan, but in the real world the drag is acting on the combined system of the caravan and the pulling car. To properly model this, computational fluid dynamic(CFD) simulations need to be done, to determine the total drag force on the car and on the caravan seperately, which is beyond the scope of this assignment. By using Simscape to link the movement of the caravan to the motor we automatically receive bi-directional power flow, which is important for features such as regenerative breaking.
 
+The `motor_PWMController` also outputs the motor current, which is directly correlated to the current going through the battery which is simulated in `battery_model` using the built-in `BatteryPack` block. We chose to use this block instead of making a manual model, since this method is more accurate and less time consuming. This models includes charging and the typical voltage curve for Lithium-Ion batteries.
 
+To determine the remaining range and efficiency of the caravan is calculated in the `range_esstimation` model. There the driven distance is gathered from the mechanical model as well as the state of charge. From these values the used charge can be calculated to find the effiecency in kWh per km, which can then in turn be used to calculate the remaining range.
 
 ## Influence of parameters
 |Variable |Influence on range|
