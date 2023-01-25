@@ -35,6 +35,7 @@ rated_speed = 25000; %rpm
 rated_load = 350; %kW
 
 %% Battery param
+battery_cut_off = 10; % at XX% the simulation will stop, battery will not deliver more power
 NominalVoltage = 370 ;
 Capacity_Ah = 300 ;
 Capacity_kWh = Capacity_Ah*NominalVoltage/1000 ;
