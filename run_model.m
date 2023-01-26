@@ -31,11 +31,11 @@ rated_load = 250; %kW
 battery_low_cut_off = 5; % at XX% battery charge the simulation will stop
 battery_high_cut_off = 95
 NominalVoltage = 370 ;
-Capacity_Ah = 250;
+Capacity_Ah = 350;
 battEnergyDensity = 240; % Wh/kg 
 
 %% Trip 
-slope = 1; %radian
+slope = 0; %radian
 
 %% Equations
 Capacity_kWh = Capacity_Ah*NominalVoltage/1000*(battery_high_cut_off-battery_low_cut_off)/100 %%* 0.8 because the available capacity is from 10%-90% due to sfety limits;
